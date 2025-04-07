@@ -160,7 +160,7 @@ commands.txt
 # Веса модели
 CogVideoX1.5-5B/
 
-models_weights/
+model_weigths/
 
 # Медиа файлы
 MEDIA/
