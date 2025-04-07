@@ -1,0 +1,27 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Videos list</title>
+<style>
+  .video-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+</style>
+</head>
+<body>
+
+{% for video in videos %}
+<h5 class="video-container">{{ video.name }}</h5>
+<a class="video-container" href="{{ video.get_absolute_url }}">{{ video.name }}</a>
+  <div class="video-container">
+    <video width="320x" height="480px" controls>
+      <source src='{{ MEDIA_URL }}{{ video.videofile }}' type='video/mp4'>
+    </video>
+  </div>
+{% endfor %}
+
+</body>
+
+</html>
