@@ -4,6 +4,7 @@ from django.db import models
 from django.urls import reverse
 from pgvector.django import VectorField
 
+from .constants import EMBEDDING_DIM, NAME_MAX_LENGTH
 from .utils import get_embedding
 
 
@@ -12,10 +13,10 @@ class VideoEmbeddings(models.Model):
         primary_key=True,
         default=uu.uuid4
         )
-    name = models.CharField(max_length=500)
+    name = models.CharField(max_length=NAME_MAX_LENGTH)
     videofile = models.FileField(upload_to='original_videos/%y')
     embedding = VectorField(
-        dimensions=512,
+        dimensions=EMBEDDING_DIM,
         null=True,
         blank=True,
     )

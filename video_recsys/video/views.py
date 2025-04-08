@@ -5,15 +5,13 @@ from django.shortcuts import (
     )
 from pgvector.django import L2Distance
 
+from .constants import RECOMENDED_COUNT, VIDEOS_LIST_VIEW
 from .forms import VideoForm
 from .models import VideoEmbeddings
 
 
-VIDEOS_LIST_VIEW = 30
-RECOMENDED_COUNT = 3
-
-
 def upload_video(request):
+    """Реализация загрузчика видео"""
     if request.method == 'POST':
         form = VideoForm(request.POST or None, request.FILES or None)
         if form.is_valid():
@@ -25,6 +23,7 @@ def upload_video(request):
 
 
 def videos_list(request):
+    """Вывод загруженных видео"""
     videos = VideoEmbeddings.objects.all()[:VIDEOS_LIST_VIEW]
     return render(
         request,
@@ -34,6 +33,10 @@ def videos_list(request):
 
 
 def recommended_videos(request, uuid):
+    """
+    Вывод списка похожих видео на основе
+    флгоритма L2Distance
+    """
     video = get_object_or_404(
         VideoEmbeddings, uuid=uuid
     )
